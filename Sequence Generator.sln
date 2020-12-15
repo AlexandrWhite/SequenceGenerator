@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sequence Generator", "Sequence Generator\Sequence Generator.csproj", "{BB524B88-D0E4-4AC2-ABC5-F2CCBDFF9AD9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB524B88-D0E4-4AC2-ABC5-F2CCBDFF9AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB524B88-D0E4-4AC2-ABC5-F2CCBDFF9AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB524B88-D0E4-4AC2-ABC5-F2CCBDFF9AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB524B88-D0E4-4AC2-ABC5-F2CCBDFF9AD9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2CC5A16A-02B6-449A-8785-B7D7061FDA8B}
+	EndGlobalSection
+EndGlobal
