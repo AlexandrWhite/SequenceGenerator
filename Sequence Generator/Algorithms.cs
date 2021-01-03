@@ -4,11 +4,15 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Diagnostics;
 
 namespace Sequence_Generator
 {
     static class Algorithms
     {
+        public static List<Matrix> CongSeqElements = new List<Matrix>();
+
         public static bool IsPrime(int n)
         {
             if (n == 1) { return false; }
@@ -38,34 +42,45 @@ namespace Sequence_Generator
 
             int[] result = { nearLeft, nearRight };
             return result;
+        }     
+         
+        public static void GenerateNewElement(Matrix a,Matrix b,int mod)
+        {          
+            Matrix element = ((a * CongSeqElements.Last()%mod) - (CongSeqElements.Last()*a%mod) +b)%mod ;
+            element.TableName = String.Format("U{0}", CongSeqElements.Count);
+            CongSeqElements.Add(element);
         }
-        
-        public static DataTable MatrixMultiply(DataTable m1,DataTable m2,int mod)
-        {
-            DataTable res = new DataTable();
-            if (m1.Columns.Count == m2.Rows.Count)
-            {
-                for (int i = 0; i < m1.Rows.Count; i++)                
-                    res.Rows.Add(res.NewRow());
 
-                for (int i = 0; i < m2.Columns.Count; i++)                
-                    res.Columns.Add(i.ToString(), typeof(int));
-                
-                for(int i = 0; i < m1.Rows.Count;i++)
-                {                    
-                    for(int j = 0; j < m2.Columns.Count;j++)
-                    {
-                        int sum = 0;
-                        for (int k = 0; k < m1.Columns.Count; k++)
-                        {
-                            sum += Int32.Parse(m1.Rows[i][k].ToString()) * Int32.Parse(m2.Rows[k][j].ToString());
-                        }
-                        res.Rows[i][j] = sum%mod;
-                    }
+        private static void WriteMatrix(Matrix dt,StreamWriter sw) {
+            sw.WriteLine(dt.TableName);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    sw.Write(dt.Rows[i][j].ToString() + " ");
                 }
-                return res;
+                sw.Write("\n");
             }
-            return null;
+            sw.WriteLine();
+            
         }
+
+        public static void WriteResultToFile(Matrix a, Matrix b, List<Matrix> dataTables)
+        {
+            StreamWriter sw = new StreamWriter("output.txt",false, System.Text.Encoding.Default);
+
+            WriteMatrix(a, sw);
+            WriteMatrix(b, sw);
+
+            sw.WriteLine("\n");
+
+            foreach (Matrix dt in dataTables)            
+               WriteMatrix(dt, sw);
+          
+            sw.Close();
+            Process.Start(@"output.txt");
+
+        }
+
     }
 }
