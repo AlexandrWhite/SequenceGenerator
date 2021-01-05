@@ -449,7 +449,13 @@ namespace Sequence_Generator
 
         private void RadioButton_Checked_3(object sender, RoutedEventArgs e)
         {
-            FibbGenerator fg = new FibbGenerator();           
+            FibbGenerator fg = new FibbGenerator();     
+            
+        }
+
+        private void RadioButton_Checked_4(object sender, RoutedEventArgs e)
+        {
+            LinearGenerator l = new LinearGenerator();
         }
     }
 }

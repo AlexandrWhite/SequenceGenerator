@@ -140,7 +140,7 @@
                 <TextBlock Text="Режим работы" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="14" Margin="4"/>
 
 
-                <RadioButton VerticalAlignment="Center"   Grid.Column="0" Grid.Row="1" IsChecked="True" />
+                <RadioButton VerticalAlignment="Center"   Grid.Column="0" Grid.Row="1" IsChecked="False" Checked="RadioButton_Checked_4"/>
                 <TextBlock Text="Линейный конгруэнтный"  Grid.Column="1" Grid.Row="1" TextWrapping="WrapWithOverflow" Margin="5"/>
 
                 <RadioButton VerticalAlignment="Center"   Grid.Column="0" Grid.Row="2" Checked="RadioButton_Checked_3"/>

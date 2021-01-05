@@ -64,7 +64,7 @@ namespace Sequence_Generator
             ((MainWindow)System.Windows.Application.Current.MainWindow).MatrixControl.DataContext = u0;
         }   
 
-        protected override void WriteResultToFile()
+        public override void WriteResultToFile()
         {
             StreamWriter sw = new StreamWriter("FibbOutput.txt", false, System.Text.Encoding.Default);          
 
@@ -75,7 +75,7 @@ namespace Sequence_Generator
             Process.Start(@"FibbOutput.txt");
         }
 
-        protected override void ReadResultFromFile(string path)
+        public override void ReadResultFromFile(string path)
         {
            //Пока не дописал
         }

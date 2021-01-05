@@ -12,7 +12,7 @@ namespace Sequence_Generator
         protected List<Matrix> SeqElements =new List<Matrix>();
         protected abstract void SetTabs();
         protected abstract void GenerateElement(int mod);
-        protected abstract void WriteResultToFile();
-        protected abstract void ReadResultFromFile(string path);   
+        public abstract void WriteResultToFile();
+        public abstract void ReadResultFromFile(string path);   
     }
 }
