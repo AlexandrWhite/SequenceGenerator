@@ -9,7 +9,34 @@ namespace Sequence_Generator
 {
     public class Matrix:DataTable
     {
-        
+
+        public Matrix(int rank = 0) : base() {
+            for(int i=0;i<rank;i++)
+                AddOrder();
+        }
+
+
+        public void AddOrder()
+        {
+            Rows.Add(this.NewRow());
+            Columns.Add((Columns.Count).ToString(), typeof(int));
+            for (int i = 0; i < Rows.Count; i++)
+                Rows[i][Rows.Count-1] = 0;
+            for (int i = 0; i < Columns.Count; i++)
+                Rows[Columns.Count-1][i] = 0;
+        }
+
+        public void RemoveOrder()
+        {
+            if (Rows.Count == 0) { return; }
+            Rows.RemoveAt(Rows.Count - 1);
+            Columns.RemoveAt(Columns.Count - 1);
+        }
+
+
+
+
+
         public static Matrix operator *(Matrix m1, Matrix m2)
         {
             Matrix res = new Matrix();
@@ -90,15 +117,30 @@ namespace Sequence_Generator
 
         public void WriteMatrix(StreamWriter sw)
         {
-            sw.WriteLine(this.TableName);
-            for (int i = 0; i < this.Rows.Count; i++)
+            sw.WriteLine(TableName);
+            for (int i = 0; i < Rows.Count; i++)
             {
-                for (int j = 0; j < this.Columns.Count; j++)
-                    sw.Write(this.Rows[i][j].ToString() + " ");
+                for (int j = 0; j < Columns.Count; j++)
+                {                   
+                    sw.Write(Rows[i][j].ToString() + " ");
+                }
 
                 sw.Write("\n");
             }
             sw.WriteLine();
+        }
+
+        public void ReadMatrix(StreamReader sr)
+        {
+           
+            for (int i = 0; i < Rows.Count; i++)
+            {               
+                string[] line = sr.ReadLine().Split();
+
+                for (int j = 0; j < Columns.Count; j++)                
+                    Rows[i][j] = Int32.Parse(line[j]);                
+            }
+            sr.ReadLine();
         }
 
     }
