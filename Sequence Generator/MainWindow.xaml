@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Sequence_Generator"
         xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Генератор" Height="500" Width="830" MinWidth="400" MinHeight="350" >
+        Title="Генераторы матричных алгебр Ли" Height="500" Width="830" MinWidth="400" MinHeight="350" >
 
     <Window.Resources>
         
@@ -53,14 +53,14 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160" MaxWidth="350" MinWidth="160"/>
+            <ColumnDefinition Width="190" MaxWidth="350" MinWidth="160"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
 
         </Grid.ColumnDefinitions>
 
         <Menu Grid.ColumnSpan="3">
-            <MenuItem Header="Открыть" x:Name="OpenFile" Click="OpenFile_Click"/>
+            <MenuItem Header="Файл" x:Name="OpenFile" Click="OpenFile_Click"/>
             <MenuItem Header="Очистить всё" x:Name="ClearAll" Click="ClearAll_Click"/>
             <!--<MenuItem Header="Авторы"/>-->
            
@@ -120,9 +120,19 @@
                                 TextWrapping="WrapWithOverflow"
                                 />
                 </Popup>
+                
+            </Grid>
+               
+            <Grid HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Margin="5" Text="Длина последовательности" TextWrapping="WrapWithOverflow"/>
+                <TextBox Grid.Row="1" Width="100"/>
             </Grid>
 
-            <Grid x:Name="ModeChoiceGrid" HorizontalAlignment="Center">
+            <Grid x:Name="ModeChoiceGrid" HorizontalAlignment="Center" Margin="0,20,0,0">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="15"/>

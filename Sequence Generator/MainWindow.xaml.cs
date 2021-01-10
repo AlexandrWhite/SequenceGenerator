@@ -174,14 +174,14 @@ namespace Sequence_Generator
 
         private void SequenceTab_Checked(object sender, RoutedEventArgs e)
         {
-            SequenceMenu.Visibility = Visibility.Visible;
-            MatrixControl.Height = new GridLength(0);
+            //SequenceMenu.Visibility = Visibility.Visible;
+            //MatrixControl.Height = new GridLength(0);
         }     
 
         private void SequenceTab_Unchecked(object sender, RoutedEventArgs e)
         {
-            SequenceMenu.Visibility = Visibility.Hidden;
-            MatrixControl.Height = new GridLength(21);
+            //SequenceMenu.Visibility = Visibility.Hidden;
+            //MatrixControl.Height = new GridLength(21);
         }    
       
         private void btnAddElem_Click(object sender, RoutedEventArgs e)
