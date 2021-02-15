@@ -79,10 +79,18 @@ namespace Sequence_Generator
 
             for (int i = 0; i < m1.Rows.Count; i++)
                 for (int j = 0; j < m1.Columns.Count; j++)
+                {
+                    
                     if ((int)m1.Rows[i][j] >= 0)
                         res.Rows[i][j] = (int)m1.Rows[i][j] % mod;
                     else
-                        res.Rows[i][j] = mod - ((-(int)m1.Rows[i][j]) % mod);
+                    {
+                        int n = (int)m1.Rows[i][j];
+                        int r = ((-n) % mod == 0) ? 0 : 1;
+                        res.Rows[i][j] = n + mod * (-n /mod+r);
+                        //Console.WriteLine(-n / mod+r);
+                    }
+                }
             
             return res;
         }

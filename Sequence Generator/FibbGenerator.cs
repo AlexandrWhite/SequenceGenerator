@@ -114,7 +114,7 @@ namespace Sequence_Generator
             }
         }
 
-
+         
         public override void GenerateElements(int mod, int count)
         {
             SeqElements.Clear();
@@ -134,7 +134,7 @@ namespace Sequence_Generator
         public override void GenerateElement(int mod)
         {
             int n = SeqElements.Count;
-            Matrix element = ((SeqElements[n - p] * SeqElements[n - q] % mod) - (SeqElements[n - q] * SeqElements[n - p] % mod) % mod);
+            Matrix element = ( ((SeqElements[n - p] * SeqElements[n - q]) % mod) -((SeqElements[n - q] * SeqElements[n - p]) % mod) )%mod;
             element.TableName = String.Format("U({0})", n);
             SeqElements.Add(element);
         }
@@ -159,8 +159,12 @@ namespace Sequence_Generator
                 PnumericUpDown.Value = Int32.Parse(parametrs[0]);
                 QnumericUpDown.Value = Int32.Parse(parametrs[1]);
 
-                foreach (Matrix m in SeqElements)
-                    m.ReadMatrix(sr);
+                foreach (UIElement mt in main.TabStackPanel.Children)
+                {
+                    Matrix matrix = (mt as MatrixTab).Matrix;
+                    matrix.ReadMatrix(sr);
+                    SeqElements.Add(matrix);
+                }
         }
 
         public override void ClearResults()

@@ -106,7 +106,7 @@ namespace Sequence_Generator
             if (mod != 0)
             {
                 //mg.ClearResults();               
-                mg.GenerateElements(mod,5);
+                mg.GenerateElements(mod,(int)numericUpDown.Value);
 
                 if (OutputCheckBox.IsChecked == true)
                     mg.WriteResultToFile();                
