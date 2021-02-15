@@ -35,9 +35,11 @@ namespace Sequence_Generator
             b.TableName = "B";
             u0.TableName = "U(0)";
             SeqElements.Add(u0);
+           
         }
 
-       
+      
+
         public override void GenerateElement(int mod)
         {
             int n = SeqElements.Count;
@@ -46,7 +48,10 @@ namespace Sequence_Generator
             SeqElements.Add(element);
         }
 
-        protected override void SetTabs()
+
+        
+
+        protected override void SetTabs(params int[] list)
         {                    
             MatrixTab aTab = new MatrixTab("Матрица A", a);
             MatrixTab bTab = new MatrixTab("Матрица B", b);
@@ -131,7 +136,8 @@ namespace Sequence_Generator
 
         public override void WriteResultToFile()
         {
-            StreamWriter sw = new StreamWriter("output.txt", false, System.Text.Encoding.Default);
+            Console.Beep(); 
+            StreamWriter sw = new StreamWriter("output.txt", true, System.Text.Encoding.Default);
             sw.WriteLine("Линейно-конгруэнтный генератор \n");
             a.WriteMatrix(sw);
             b.WriteMatrix(sw);
@@ -140,8 +146,9 @@ namespace Sequence_Generator
             foreach (Matrix dt in SeqElements)
                 dt.WriteMatrix(sw);
 
-            sw.Close();
+            
             Process.Start(@"output.txt");
+            sw.Close();
         }
 
         public override void ClearResults()
@@ -156,8 +163,7 @@ namespace Sequence_Generator
             a.Columns.Clear();
             b.Rows.Clear();
             b.Columns.Clear();
-            u0.Rows.Clear();
-            u0.Columns.Clear();
+            ClearResults();
         }
 
     }        

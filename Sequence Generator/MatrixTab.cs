@@ -23,6 +23,7 @@ namespace Sequence_Generator
     class MatrixTab:RadioButton
     {
         Matrix matrix;
+        MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
         public Matrix Matrix { get { return matrix; } }
 
         public MatrixTab(string name,Matrix matrix) : base() {
@@ -34,6 +35,13 @@ namespace Sequence_Generator
         {
             parent.DataContext = this;
         }
+
+        protected override void OnChecked(RoutedEventArgs e)
+        {
+            base.OnChecked(e);
+            main.MatrixDataGrid.DataContext = matrix;
+        }
+
 
     }
 }

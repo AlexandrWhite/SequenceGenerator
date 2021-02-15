@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.IO;
 using Microsoft.Win32;
+using ControlLib;
 
 namespace Sequence_Generator
 {
@@ -29,7 +30,7 @@ namespace Sequence_Generator
 
 
 
-        MatrixGenerator mg;
+        public MatrixGenerator mg;
 
         public MainWindow()
         {       
@@ -40,7 +41,10 @@ namespace Sequence_Generator
             defaultBrush = (Brush)Application.Current.MainWindow.FindResource("DefaultBrush");
 
             mg = new LinearGenerator();
-            LinearRadioButton.IsChecked = true;               
+            SelectModeComboBox.SelectedItem = SelectModeComboBox.Items[0];
+           
+            
+            
         }      
         
         private void GpTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -101,16 +105,17 @@ namespace Sequence_Generator
             int mod = GetNumber();
             if (mod != 0)
             {
-                for (int i = 0; i < 10; i++)
-                    mg.GenerateElement(mod);               
+                mg.ClearResults();
+
+                for (int i = 0; i < 3; i++)
+                    mg.GenerateElement(mod);
 
                 if (OutputCheckBox.IsChecked == true)
-                    mg.WriteResultToFile();
-                
+                    mg.WriteResultToFile();                
             }
         }     
         
-        private void MatrixDataGridRefresh(DataTable d)
+        public void MatrixDataGridRefresh(DataTable d)
         {
             MatrixDataGrid.DataContext = null;
             MatrixDataGrid.DataContext = d;
@@ -145,8 +150,6 @@ namespace Sequence_Generator
             mg.ClearResults();
         }
 
-        
-
         int GetNumber()
         {
             try
@@ -172,40 +175,7 @@ namespace Sequence_Generator
         
         }           
 
-        private void SequenceTab_Checked(object sender, RoutedEventArgs e)
-        {
-            //SequenceMenu.Visibility = Visibility.Visible;
-            //MatrixControl.Height = new GridLength(0);
-        }     
-
-        private void SequenceTab_Unchecked(object sender, RoutedEventArgs e)
-        {
-            //SequenceMenu.Visibility = Visibility.Hidden;
-            //MatrixControl.Height = new GridLength(21);
-        }    
       
-        private void btnAddElem_Click(object sender, RoutedEventArgs e)
-        {
-            //AddCongSeqElement();   
-        }
-
-        private void B_Click(object sender, RoutedEventArgs e)
-        {
-            //result = Algorithms.CongSeqElements[(int)((sender as Button).Tag)];             
-            //MatrixDataGridRefresh(result);
-            //ResultTab.Tag = String.Format("U({0})", (int)((sender as Button).Tag));
-            //ResultTab.IsChecked = true;
-        }
-
-        private void ResultTab_Checked(object sender, RoutedEventArgs e)
-        {
-            MatrixControl.Height = new GridLength(0);
-        }
-
-        private void ResultTab_Unchecked(object sender, RoutedEventArgs e)
-        {
-            MatrixControl.Height = new GridLength(21);
-        }
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
         {
@@ -217,15 +187,7 @@ namespace Sequence_Generator
             }              
         }
 
-        private void RadioButton_Checked_3(object sender, RoutedEventArgs e)
-        {
-             mg = new FibbGenerator();                       
-        }
-
-        private void RadioButton_Checked_4(object sender, RoutedEventArgs e)
-        {
-            mg = new LinearGenerator();
-        }
+ 
 
         private void MatrixDataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
         {
@@ -236,12 +198,43 @@ namespace Sequence_Generator
         {
             GpTextBox.Text = "";
             mg.ClearAll();
-            MatrixDataGrid.DataContext = null;
+            MatrixDataGridRefresh(MatrixDataGrid.DataContext as DataTable);
         }
-    }
 
+        private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            mg = new LinearGenerator();
 
-    
+            if (mg.parametrsPanel != null)
+            {
+                ParametrExpander.Visibility = Visibility.Visible;
+                ParametrExpander.Content = mg.parametrsPanel;
 
+            }
+            else
+            {
+                ParametrExpander.Visibility = Visibility.Hidden;
+            }
+
+        }
+
+        private void ComboBoxItem_Selected_1(object sender, RoutedEventArgs e)
+        {
+            mg = new FibbGenerator();
+            if (mg.parametrsPanel != null)
+            {
+                ParametrExpander.Visibility = Visibility.Visible;
+                ParametrExpander.Content = mg.parametrsPanel;
+                ParametrExpander.IsExpanded = true;
+
+            }
+            else
+            {
+                ParametrExpander.Visibility = Visibility.Hidden;
+            }
+        }
+
+       
       
+    }        
 }

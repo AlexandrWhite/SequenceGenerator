@@ -11,10 +11,16 @@ namespace Sequence_Generator
     {
 
         public Matrix(int rank = 0) : base() {
-            for(int i=0;i<rank;i++)
-                AddOrder();
+            SetOreder(rank);
         }
 
+        public void SetOreder(int rank=0)
+        {
+            Rows.Clear();
+            Columns.Clear();
+            for (int i = 0; i < rank; i++)
+                AddOrder();
+        }
 
         public void AddOrder()
         {

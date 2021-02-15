@@ -17,59 +17,114 @@ using System.Windows.Threading;
 using System.IO;
 using Microsoft.Win32;
 using System.Diagnostics;
+using ControlLib;
 
 namespace Sequence_Generator
 {
-    public class FibbGenerator:MatrixGenerator
+    public class FibbGenerator : MatrixGenerator
     {
         MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
+        int p = 2;
+        int q = 1;
+        int rank = 3;
+        NumericUpDown PnumericUpDown = new NumericUpDown();
+        NumericUpDown QnumericUpDown = new NumericUpDown();
 
-        Matrix u0 = new Matrix(3);
-        Matrix u1 = new Matrix(3);
+
+        private void SetParametrPanel()
+        {
+            //PnumericUpDown.Value = p;
+            //QnumericUpDown.Value = q;
+
+            //PnumericUpDown.VerticalAlignment = VerticalAlignment.Center;
+            //QnumericUpDown.VerticalAlignment = VerticalAlignment.Center;
+
+            //PnumericUpDown.MinValue = 1;
+            //QnumericUpDown.MinValue = 1;
+
+            //PnumericUpDown.ValueChanged += PnumericUpDown_ValueChanged;
+            //QnumericUpDown.ValueChanged += QnumericUpDown_ValueChanged;
+
+            //parametrsPanel = new StackPanel();
+
+            //parametrsPanel.Margin = new Thickness(10);
+
+            //StackPanel s1 = new StackPanel();
+            //s1.Orientation = Orientation.Horizontal;
+
+            //StackPanel s2 = new StackPanel();
+            //s2.Orientation = Orientation.Horizontal;
+
+            //Label pLabel = new Label();
+            //Label qLabel = new Label();
+
+            //pLabel.Content = "p";
+            //qLabel.Content = "q";
+
+            //s1.Children.Add(pLabel);
+            //s1.Children.Add(PnumericUpDown);
+            //s2.Children.Add(qLabel);
+            //s2.Children.Add(QnumericUpDown);
+
+            //parametrsPanel.Children.Add(s1);
+            //parametrsPanel.Children.Add(s2);
+        }
+
+        private void QnumericUpDown_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            SetGenerator((int)PnumericUpDown.Value, (int)QnumericUpDown.Value);
+
+        }
+
+        private void PnumericUpDown_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            SetGenerator((int)PnumericUpDown.Value, (int)QnumericUpDown.Value);
+        }
 
         public FibbGenerator()
         {
-            SetTabs();
-            u0.TableName = "U(0)";
-            u1.TableName = "U(1)";
-            SeqElements.Add(u0);
-            SeqElements.Add(u1);
+            SetParametrPanel();
+            SetGenerator(p, q);
         }
 
-        protected override void SetTabs()
+        private void SetGenerator(int p, int q)
         {
-            MatrixTab u0Tab = new MatrixTab("U(0)",u0);
-            MatrixTab u1Tab = new MatrixTab("U(1)",u1);
-            u0Tab.Checked += U0Tab_Checked;
-            u1Tab.Checked += U1Tab_Checked;
+            this.p = p;
+            this.q = q;
+            SetTabs(Math.Max(p, q), rank);
+        }
 
+        protected override void SetTabs(params int[] list)
+        {
             main.TabStackPanel.Children.Clear();
-            main.TabStackPanel.Children.Add(u0Tab);
-            main.TabStackPanel.Children.Add(u1Tab);
-            
-            u0Tab.IsChecked = true;
+            SeqElements.Clear();
+
+            int n = list[0];
+
+            for (int i = 0; i < n; i++)
+            {
+                string name = String.Format("U({0})", i);
+                Matrix m = new Matrix(list[1]);
+                MatrixTab mTab = new MatrixTab(name, m);
+                main.TabStackPanel.Children.Add(mTab);
+                m.TableName = name;
+                SeqElements.Add(m);
+                (main.TabStackPanel.Children[0] as MatrixTab).IsChecked = true;
+            }
         }
 
-        private void U1Tab_Checked(object sender, RoutedEventArgs e)
+
+        public override void GenerateElement(int mod)
         {
-            main.MatrixDataGrid.DataContext = u1;
-        }
-
-        private void U0Tab_Checked(object sender, RoutedEventArgs e)
-        {
-            main.MatrixDataGrid.DataContext = u0;
-        }
-
-        public override void GenerateElement(int mod) {
             int n = SeqElements.Count;
-            Matrix element = ((SeqElements[n-2]*SeqElements[n-1]%mod) - (SeqElements[n-1]*SeqElements[n-2]%mod)%mod);
-            element.TableName = String.Format("U({0})", n-1);
+            Matrix element = ((SeqElements[n - p] * SeqElements[n - q] % mod) - (SeqElements[n - q] * SeqElements[n - p] % mod) % mod);
+            element.TableName = String.Format("U({0})", n - 1);
             SeqElements.Add(element);
-        }       
+        }
 
         public override void WriteResultToFile()
         {
-            StreamWriter sw = new StreamWriter("FibbOutput.txt", false, System.Text.Encoding.Default);          
+            StreamWriter sw = new StreamWriter("FibbOutput.txt", false, System.Text.Encoding.Default);
 
             foreach (Matrix dt in SeqElements)
                 dt.WriteMatrix(sw);
@@ -79,55 +134,28 @@ namespace Sequence_Generator
         }
 
         public override void ReadFromFile(string path)
-        {
-            try
-            {
+        {           
                 StreamReader sr = new StreamReader(path, System.Text.Encoding.Default);
-                int rank = Int32.Parse(sr.ReadLine());
-                Matrix currentMatrix = main.MatrixDataGrid.DataContext as Matrix;
+                rank = Int32.Parse(sr.ReadLine());
+                string[] parametrs = sr.ReadLine().Split();
 
-                u0.Rows.Clear();
-                u0.Columns.Clear();
-                u1.Rows.Clear();
-                u1.Columns.Clear();
+                PnumericUpDown.Value = Int32.Parse(parametrs[0]);
+                QnumericUpDown.Value = Int32.Parse(parametrs[1]);
 
-
-                for (int i = 0; i < rank; i++)
-                {
-                    u0.Columns.Add(i.ToString(), typeof(int));
-                    u1.Columns.Add(i.ToString(), typeof(int));
-                }
-
-                for (int i = 0; i < rank; i++)
-                {
-                    u0.Rows.Add(u0.NewRow());
-                    u1.Rows.Add(u1.NewRow());
-                }
-
-                u0.ReadMatrix(sr);
-                u1.ReadMatrix(sr);
-
-                main.MatrixDataGrid.DataContext = null;
-                main.MatrixDataGrid.DataContext = currentMatrix;
-            }
-            catch
-            {
-                MessageBox.Show("Произошла ошибка ввода. Проверьте правильность введнных данных");
-            }
+                foreach (Matrix m in SeqElements)
+                    m.ReadMatrix(sr);
         }
 
         public override void ClearResults()
         {
-            SeqElements.Clear();
-            SeqElements.Add(u0);
-            SeqElements.Add(u1);
+         
         }
 
         public override void ClearAll()
         {
-            ClearResults();
-            u0.Rows.Clear();
-            u0.Columns.Clear();
+            SeqElements.Clear();
+            PnumericUpDown.Value = PnumericUpDown.MinValue;
+            QnumericUpDown.Value = QnumericUpDown.MinValue;
         }
     }
 }

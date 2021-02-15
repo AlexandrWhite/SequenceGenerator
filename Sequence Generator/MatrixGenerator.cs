@@ -4,14 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace Sequence_Generator
 {
     public abstract class MatrixGenerator
     {
-        protected List<Matrix> SeqElements = new List<Matrix>();      
-
-        protected abstract void SetTabs();
+        
+        public List<Matrix> SeqElements = new List<Matrix>();
+        public Panel parametrsPanel;
+        protected abstract void SetTabs(params int[] list);
         public abstract void GenerateElement(int mod);
         public abstract void ClearResults();
         public abstract void ClearAll();
