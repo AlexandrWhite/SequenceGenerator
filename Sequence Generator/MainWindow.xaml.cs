@@ -105,10 +105,8 @@ namespace Sequence_Generator
             int mod = GetNumber();
             if (mod != 0)
             {
-                mg.ClearResults();
-
-                for (int i = 0; i < 3; i++)
-                    mg.GenerateElement(mod);
+                //mg.ClearResults();               
+                mg.GenerateElements(mod,5);
 
                 if (OutputCheckBox.IsChecked == true)
                     mg.WriteResultToFile();                
@@ -203,38 +201,24 @@ namespace Sequence_Generator
 
         private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
         {
-            mg = new LinearGenerator();
-
-            if (mg.parametrsPanel != null)
-            {
-                ParametrExpander.Visibility = Visibility.Visible;
-                ParametrExpander.Content = mg.parametrsPanel;
-
-            }
-            else
-            {
-                ParametrExpander.Visibility = Visibility.Hidden;
-            }
-
+            mg = new LinearGenerator();          
         }
 
         private void ComboBoxItem_Selected_1(object sender, RoutedEventArgs e)
         {
-            mg = new FibbGenerator();
-            if (mg.parametrsPanel != null)
+            mg = new FibbGenerator();   
+        }
+
+        private void ParametrExpander_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+            if (ParametrExpander.Content != null)
             {
                 ParametrExpander.Visibility = Visibility.Visible;
-                ParametrExpander.Content = mg.parametrsPanel;
-                ParametrExpander.IsExpanded = true;
-
             }
             else
             {
                 ParametrExpander.Visibility = Visibility.Hidden;
             }
         }
-
-       
-      
     }        
 }

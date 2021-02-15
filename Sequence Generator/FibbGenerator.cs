@@ -33,41 +33,41 @@ namespace Sequence_Generator
 
         private void SetParametrPanel()
         {
-            //PnumericUpDown.Value = p;
-            //QnumericUpDown.Value = q;
+            PnumericUpDown.Value = p;
+            QnumericUpDown.Value = q;
 
-            //PnumericUpDown.VerticalAlignment = VerticalAlignment.Center;
-            //QnumericUpDown.VerticalAlignment = VerticalAlignment.Center;
+            PnumericUpDown.VerticalAlignment = VerticalAlignment.Center;
+            QnumericUpDown.VerticalAlignment = VerticalAlignment.Center;
 
-            //PnumericUpDown.MinValue = 1;
-            //QnumericUpDown.MinValue = 1;
+            PnumericUpDown.MinValue = 1;
+            QnumericUpDown.MinValue = 1;
 
-            //PnumericUpDown.ValueChanged += PnumericUpDown_ValueChanged;
-            //QnumericUpDown.ValueChanged += QnumericUpDown_ValueChanged;
+            PnumericUpDown.ValueChanged += PnumericUpDown_ValueChanged;
+            QnumericUpDown.ValueChanged += QnumericUpDown_ValueChanged;
 
-            //parametrsPanel = new StackPanel();
+            parametrsPanel = new StackPanel();
 
-            //parametrsPanel.Margin = new Thickness(10);
+            parametrsPanel.Margin = new Thickness(10);
 
-            //StackPanel s1 = new StackPanel();
-            //s1.Orientation = Orientation.Horizontal;
+            StackPanel s1 = new StackPanel();
+            s1.Orientation = Orientation.Horizontal;
 
-            //StackPanel s2 = new StackPanel();
-            //s2.Orientation = Orientation.Horizontal;
+            StackPanel s2 = new StackPanel();
+            s2.Orientation = Orientation.Horizontal;
 
-            //Label pLabel = new Label();
-            //Label qLabel = new Label();
+            Label pLabel = new Label();
+            Label qLabel = new Label();
 
-            //pLabel.Content = "p";
-            //qLabel.Content = "q";
+            pLabel.Content = "p";
+            qLabel.Content = "q";
 
-            //s1.Children.Add(pLabel);
-            //s1.Children.Add(PnumericUpDown);
-            //s2.Children.Add(qLabel);
-            //s2.Children.Add(QnumericUpDown);
+            s1.Children.Add(pLabel);
+            s1.Children.Add(PnumericUpDown);
+            s2.Children.Add(qLabel);
+            s2.Children.Add(QnumericUpDown);
 
-            //parametrsPanel.Children.Add(s1);
-            //parametrsPanel.Children.Add(s2);--------------------------------
+            parametrsPanel.Children.Add(s1);
+            parametrsPanel.Children.Add(s2);
         }
 
         private void QnumericUpDown_ValueChanged(object sender, ValueChangedEventArgs e)
@@ -84,7 +84,9 @@ namespace Sequence_Generator
         public FibbGenerator()
         {
             SetParametrPanel();
-            SetGenerator(p, q);
+            main.ParametrExpander.Content = parametrsPanel;            
+            main.ParametrExpander.Visibility = Visibility.Visible;
+            SetGenerator(p,q);
         }
 
         private void SetGenerator(int p, int q)
@@ -107,18 +109,33 @@ namespace Sequence_Generator
                 Matrix m = new Matrix(list[1]);
                 MatrixTab mTab = new MatrixTab(name, m);
                 main.TabStackPanel.Children.Add(mTab);
-                m.TableName = name;
-                SeqElements.Add(m);
+                m.TableName = name;               
                 (main.TabStackPanel.Children[0] as MatrixTab).IsChecked = true;
             }
         }
 
 
+        public override void GenerateElements(int mod, int count)
+        {
+            SeqElements.Clear();
+            foreach(UIElement mt in main.TabStackPanel.Children)
+            {
+                Matrix matrix = (mt as MatrixTab).Matrix;
+                matrix %= mod;
+                matrix.TableName = (mt as MatrixTab).Matrix.TableName;
+                SeqElements.Add(matrix);
+            }
+            for (int i = 0; i < count; i++)
+            {
+                GenerateElement(mod);
+            }
+        }
+
         public override void GenerateElement(int mod)
         {
             int n = SeqElements.Count;
             Matrix element = ((SeqElements[n - p] * SeqElements[n - q] % mod) - (SeqElements[n - q] * SeqElements[n - p] % mod) % mod);
-            element.TableName = String.Format("U({0})", n - 1);
+            element.TableName = String.Format("U({0})", n);
             SeqElements.Add(element);
         }
 

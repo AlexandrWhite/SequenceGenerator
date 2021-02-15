@@ -11,11 +11,15 @@ namespace Sequence_Generator
 {
     public abstract class MatrixGenerator
     {
-        
+      
         public List<Matrix> SeqElements = new List<Matrix>();
         public Panel parametrsPanel;
+
+        
+
         protected abstract void SetTabs(params int[] list);
         public abstract void GenerateElement(int mod);
+        public abstract void GenerateElements(int mod,int count);
         public abstract void ClearResults();
         public abstract void ClearAll();
         public abstract void WriteResultToFile();

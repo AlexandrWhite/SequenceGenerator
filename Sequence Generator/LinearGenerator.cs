@@ -35,7 +35,7 @@ namespace Sequence_Generator
             b.TableName = "B";
             u0.TableName = "U(0)";
             SeqElements.Add(u0);
-           
+            main.ParametrExpander.Visibility = Visibility.Hidden;           
         }
 
       
@@ -49,7 +49,13 @@ namespace Sequence_Generator
         }
 
 
-        
+        public override void GenerateElements(int mod, int count)
+        {
+            for(int i = 0; i < count; i++)
+            {
+                GenerateElement(mod);
+            }
+        }
 
         protected override void SetTabs(params int[] list)
         {                    
