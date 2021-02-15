@@ -67,7 +67,7 @@ namespace Sequence_Generator
             //s2.Children.Add(QnumericUpDown);
 
             //parametrsPanel.Children.Add(s1);
-            //parametrsPanel.Children.Add(s2);
+            //parametrsPanel.Children.Add(s2);--------------------------------
         }
 
         private void QnumericUpDown_ValueChanged(object sender, ValueChangedEventArgs e)
