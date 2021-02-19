@@ -9,10 +9,8 @@ namespace Sequence_Generator
 {
     public class Matrix:DataTable
     {
-        static Random rand = new Random();
 
-        public Matrix(int rank = 0) : base()
-        {
+        public Matrix(int rank = 0) : base() {
             SetOreder(rank);
         }
 
@@ -161,7 +159,7 @@ namespace Sequence_Generator
 
         public void RandomFill()
         {
-            
+            Random rand = new Random();
             for(int i = 0; i < Rows.Count; i++)
             {
                 for(int j = 0; j < Columns.Count; j++)
@@ -169,7 +167,6 @@ namespace Sequence_Generator
                     Rows[i][j] = rand.Next(0, 1001);
                 }
             }
-           
         }
 
     }

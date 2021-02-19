@@ -220,19 +220,5 @@ namespace Sequence_Generator
                 ParametrExpander.Visibility = Visibility.Hidden;
             }
         }
-
-        private void RandomMatrixButtonClick(object sender, RoutedEventArgs e)
-        {
-            (MatrixDataGrid.DataContext as Matrix).RandomFill();
-        }
-
-        private void RandomAllMatrixClick(object sender, RoutedEventArgs e)
-        {
-           for(int i = 0; i < TabStackPanel.Children.Count; i++)
-           {
-                (TabStackPanel.Children[i] as MatrixTab).Matrix.SetOreder((int)MatrixRankNumUpDown.Value);
-                (TabStackPanel.Children[i] as MatrixTab).Matrix.RandomFill();
-           }
-        }
     }        
 }

@@ -143,7 +143,7 @@ namespace Sequence_Generator
         public override void WriteResultToFile()
         {
             StreamWriter sw = new StreamWriter("FibbOutput.txt", false, System.Text.Encoding.Default);
-            sw.WriteLine(String.Format("Генератор Фибоначчи p:{0} q:{1}\n", p, q));
+
             foreach (Matrix dt in SeqElements)
                 dt.WriteMatrix(sw);
 

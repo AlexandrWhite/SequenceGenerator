@@ -26,8 +26,6 @@ namespace Sequence_Generator
         Matrix b = new Matrix(3);
         Matrix u0 = new Matrix(3);
 
-       
-
         MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
    
         public LinearGenerator()
@@ -53,15 +51,7 @@ namespace Sequence_Generator
 
         public override void GenerateElements(int mod, int count)
         {
-            SeqElements.Clear();
-            u0 %= mod;
-            a %= mod;
-            b %= mod;
-            u0.TableName = "U(0)";
-            a.TableName = "A";
-            b.TableName = "B";
-            SeqElements.Add(u0);
-            for(int i = 1; i < count; i++)
+            for(int i = 0; i < count; i++)
             {
                 GenerateElement(mod);
             }
@@ -153,9 +143,8 @@ namespace Sequence_Generator
         public override void WriteResultToFile()
         {
             Console.Beep(); 
-            StreamWriter sw = new StreamWriter("output.txt", false, System.Text.Encoding.Default);
+            StreamWriter sw = new StreamWriter("output.txt", true, System.Text.Encoding.Default);
             sw.WriteLine("Линейно-конгруэнтный генератор \n");
-           
             a.WriteMatrix(sw);
             b.WriteMatrix(sw);
             sw.WriteLine("\n");

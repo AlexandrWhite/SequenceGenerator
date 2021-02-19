@@ -132,7 +132,7 @@
                 <TextBlock Margin="5" Text="Длина последовательности" TextWrapping="WrapWithOverflow"/>
                 <ControlLib:NumericUpDown x:Name="numericUpDown" 
                                           HorizontalAlignment="Center"
-                                          MinValue="1" MaxValue="10000"
+                                          MinValue="1" MaxValue="1000"
                                           VerticalAlignment="Center" 
                                           Increment="1" 
                                           FontSize="12"/>
@@ -257,18 +257,13 @@
                 VerticalAlignment="Bottom"
                 Margin="0,0,40,0"
                 Header="Случайное заполнение"
-                Background="#FF66BBB4"
-                Width="170"
+                Background="#FF4794B8"
+                
                 ExpandDirection="Up"
                 >
                 <StackPanel>
-                    
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Порядок матриц" HorizontalAlignment="Center" TextAlignment="Center" Margin="4" Width="50" TextWrapping="WrapWithOverflow" />
-                            <ControlLib:NumericUpDown Name="MatrixRankNumUpDown" VerticalAlignment="Center" MinValue="1" MaxValue="100" Increment="1" Value="3"/>                          
-                        </StackPanel>
-                    <Button Content="Генерировать" Width="120" Margin="0,4,0,0" Click="RandomAllMatrixClick"/>
-
+                    <Button Content="Заполнить все матрицы" Margin="2" Padding="2"/>
+                    <Button Content="Заполнить текщую матрицу" Margin="2,3,2,2" Padding="2"/>                  
                 </StackPanel>
             </Expander>
 
