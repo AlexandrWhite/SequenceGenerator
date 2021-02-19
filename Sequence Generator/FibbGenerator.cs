@@ -125,7 +125,8 @@ namespace Sequence_Generator
                 matrix.TableName = (mt as MatrixTab).Matrix.TableName;
                 SeqElements.Add(matrix);
             }
-            for (int i = 0; i < count; i++)
+            int inputCount = SeqElements.Count;
+            for (int i = 0; i < count-inputCount; i++)
             {
                 GenerateElement(mod);
             }
