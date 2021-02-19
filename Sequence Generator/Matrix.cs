@@ -157,14 +157,14 @@ namespace Sequence_Generator
             sr.ReadLine();
         }
 
-        public void RandomFill()
+        public void RandomFill(int maxValue)
         {
             Random rand = new Random();
             for(int i = 0; i < Rows.Count; i++)
             {
                 for(int j = 0; j < Columns.Count; j++)
                 {
-                    Rows[i][j] = rand.Next(0, 1001);
+                    Rows[i][j] = rand.Next(0, maxValue+1);
                 }
             }
         }
