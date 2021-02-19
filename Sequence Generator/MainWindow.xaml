@@ -257,13 +257,14 @@
                 VerticalAlignment="Bottom"
                 Margin="0,0,40,0"
                 Header="Случайное заполнение"
-                Background="#FF4794B8"
+                Background="#FF47B880"
                 
                 ExpandDirection="Up"
                 >
                 <StackPanel>
-                    <Button Content="Заполнить все матрицы" Margin="2" Padding="2"/>
-                    <Button Content="Заполнить текщую матрицу" Margin="2,3,2,2" Padding="2"/>                  
+                    <TextBlock Text="Ранг матриц" HorizontalAlignment="Center"/>
+                    <ControlLib:NumericUpDown Value="3" Increment="1" MinValue="1" MaxValue="100"/>
+                    <Button Content="Сгенерировать" Margin="3" Padding="2" Width="100"/>                                     
                 </StackPanel>
             </Expander>
 
