@@ -230,6 +230,7 @@ namespace Sequence_Generator
                 {
                     (TabStackPanel.Children[i] as MatrixTab).Matrix.SetOreder((int)RandomFillNumericUpDown.Value);
                     (TabStackPanel.Children[i] as MatrixTab).Matrix.RandomFill(n);
+                    
                 }
             }
         }

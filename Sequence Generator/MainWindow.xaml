@@ -262,7 +262,7 @@
                 ExpandDirection="Up"
                 >
                 <StackPanel Margin="2">
-                    <TextBlock Text="Ранг матриц" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Порядок матриц" HorizontalAlignment="Center"/>
                     <ControlLib:NumericUpDown Value="3" Name="RandomFillNumericUpDown" Increment="1" MinValue="1" MaxValue="100"/>
                     <Button Content="Сгенерировать" Margin="3" Padding="2" Width="100" Click="RandomMatrixFillClick"/>                                     
                 </StackPanel>
