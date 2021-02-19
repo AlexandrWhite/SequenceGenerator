@@ -118,11 +118,11 @@ namespace Sequence_Generator
         public override void GenerateElements(int mod, int count)
         {
             SeqElements.Clear();
-            foreach(UIElement mt in main.TabStackPanel.Children)
+            for(int i=0;i<Math.Min(main.TabStackPanel.Children.Count,count);i++)
             {
-                Matrix matrix = (mt as MatrixTab).Matrix;
+                Matrix matrix = (main.TabStackPanel.Children[i] as MatrixTab).Matrix;
                 matrix %= mod;
-                matrix.TableName = (mt as MatrixTab).Matrix.TableName;
+                matrix.TableName = (main.TabStackPanel.Children[i] as MatrixTab).Matrix.TableName;
                 SeqElements.Add(matrix);
             }
             int inputCount = SeqElements.Count;
@@ -143,6 +143,7 @@ namespace Sequence_Generator
         public override void WriteResultToFile()
         {
             StreamWriter sw = new StreamWriter("FibbOutput.txt", false, System.Text.Encoding.Default);
+            sw.WriteLine("Генератор Фибоначчи p={0} q={1}\n",p,q);
 
             foreach (Matrix dt in SeqElements)
                 dt.WriteMatrix(sw);
