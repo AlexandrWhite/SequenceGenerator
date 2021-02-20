@@ -226,12 +226,14 @@ namespace Sequence_Generator
             int n = GetNumber();
             if (n != 0)
             {
+
                 for(int i = 0; i < TabStackPanel.Children.Count; i++)
                 {
                     (TabStackPanel.Children[i] as MatrixTab).Matrix.SetOreder((int)RandomFillNumericUpDown.Value);
                     (TabStackPanel.Children[i] as MatrixTab).Matrix.RandomFill(n-1);
                     
                 }
+                MatrixDataGridRefresh(MatrixDataGrid.DataContext as DataTable);
             }
         }
     }        
