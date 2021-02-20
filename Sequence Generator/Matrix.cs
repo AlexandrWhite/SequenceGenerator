@@ -158,6 +158,9 @@ namespace Sequence_Generator
             sr.ReadLine();
         }
 
+        /// <summary>
+        /// Заполняет все элемента массива случайными значениями от 0 до <paramref>maxValue</paramref> включительно
+        /// </summary>
         public void RandomFill(int maxValue)
         {
           
