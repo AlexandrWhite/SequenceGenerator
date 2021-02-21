@@ -173,10 +173,9 @@
 
         <Grid x:Name="MatrixWorkspace" Grid.Column="2" Background="#FFF4F4F4" Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition x:Name="TabRow" Height="30"/>
-                
+                <RowDefinition x:Name="TabRow" Height="30"/>                
                 <RowDefinition x:Name="MatrixRow"/>
-               
+                <RowDefinition x:Name="ParametrsRow"/>
             </Grid.RowDefinitions>
             
             <StackPanel Orientation="Horizontal" Name="TabStackPanel" x:FieldModifier="public" Background="#FFA0D0F1">
@@ -211,7 +210,8 @@
             </DataGrid>
 
 
-            <Border Grid.Row="1"
+
+            <Border Grid.Row="2"
                     Background="#FFACBCDE"
                     Name="PlusPanel"
                     VerticalAlignment="Bottom"
@@ -220,6 +220,8 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
 
+                    <Button Grid.Row="2" Content="Случайное заполнение" VerticalAlignment="Center" Margin="2" Click="RandomMatrixFillClick"/>
+                    
                     <Button  Margin="1" Height="18" Width="18" Name="AddButton" Click="AddButton_Click">
                         <TextBlock Text="+" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Button>
@@ -235,7 +237,7 @@
             <Expander 
                 x:Name="ParametrExpander"
                
-                Grid.Row="1"
+                Grid.Row="2"
                 Header="Параметры генератора"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Left"
@@ -250,23 +252,7 @@
                 </TextBlock>
             </Expander>
 
-            <Expander
-                x:Name="FillRandomExpander"
-                Grid.Row="1"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Margin="0,0,40,0"
-                Header="Случайное заполнение"
-                Background="#FF47B880"
-                
-                ExpandDirection="Up"
-                >
-                <StackPanel Margin="2">
-                    <TextBlock Text="Порядок матриц" HorizontalAlignment="Center"/>
-                    <ControlLib:NumericUpDown Value="3" Name="RandomFillNumericUpDown" Increment="1" MinValue="1" MaxValue="100"/>
-                    <Button Content="Сгенерировать" Margin="3" Padding="2" Width="100" Click="RandomMatrixFillClick"/>                                     
-                </StackPanel>
-            </Expander>
+            
 
         </Grid>
 
