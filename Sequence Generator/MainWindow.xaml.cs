@@ -224,14 +224,14 @@ namespace Sequence_Generator
         private void RandomMatrixFillClick(object sender, RoutedEventArgs e)
         {
             int n = GetNumber();
+           
             if (n != 0)
             {
-
-                for(int i = 0; i < TabStackPanel.Children.Count; i++)
+                int order = (MatrixDataGrid.DataContext as Matrix).GetOrder();
+                for (int i = 0; i < TabStackPanel.Children.Count; i++)
                 {
-                    (TabStackPanel.Children[i] as MatrixTab).Matrix.SetOreder((int)RandomFillNumericUpDown.Value);
-                    (TabStackPanel.Children[i] as MatrixTab).Matrix.RandomFill(n-1);
-                    
+                    (TabStackPanel.Children[i] as MatrixTab).Matrix.SetOreder(order);
+                    (TabStackPanel.Children[i] as MatrixTab).Matrix.RandomFill(n-1);                    
                 }
                 MatrixDataGridRefresh(MatrixDataGrid.DataContext as DataTable);
             }

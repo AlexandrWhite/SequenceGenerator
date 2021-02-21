@@ -23,6 +23,11 @@ namespace Sequence_Generator
                 AddOrder();
         }
 
+        public int GetOrder()
+        {
+            return Rows.Count;
+        }
+
         public void AddOrder()
         {
             Rows.Add(this.NewRow());
